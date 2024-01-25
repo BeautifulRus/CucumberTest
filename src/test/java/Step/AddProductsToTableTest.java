@@ -15,8 +15,7 @@ import java.time.Duration;
 
 public class AddProductsToTableTest extends BaseSeleniumTestPage {
 private int tableScopeToCheck = 4;
-   // WebDriverWait wait =
-        //    new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(10000));
+
 
     @FindBy(xpath = "//div/div/div/div[1]/button")
     private static WebElement buttonAddProduct;
@@ -52,36 +51,28 @@ private int tableScopeToCheck = 4;
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-        WebDriverWait wait =
-                new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(10000));
+        //WebDriverWait wait =
+               // new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(10000));
         AddProductsToTableTest addProductsToTableTest = new AddProductsToTableTest();
         BaseSeleniumTestPage.setDriver(driver);
         driver.get(url);
     }
 
 
-    @Given("Кнопка Добавить кликабельна")
-    public void кнопкаДобавитьКликабельна() {
-       // wait.until(ExpectedConditions.elementToBeClickable(buttonAddProduct));
-    }
+
 
     @Given("Нажимается кнопка Добавить")
     public void нажимаетсяКнопкаДобавить() {
         buttonAddProduct.click();
     }
 
-    @Given("Окно Добавление товара видимо")
-    public void окноДобавлениеТовараВидимо() {
-      //  wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//body [@class=\"modal-open\"]")));
-    }
-
     @Given("Вводится тестовое значение в поле Наименование {string}, в поле Тип {string}, в поле Экзотический {string}")
-    public void вводитсяТестовоеЗначениеВПолеНаименованиеВПолеТипВПолеЭкзотический(String arg0, String arg1, String arg2) {
-        inputName.sendKeys(arg0);
-        if (arg1.equals("FRUIT")){
+    public void вводитсяТестовоеЗначениеВПолеНаименованиеВПолеТипВПолеЭкзотический(String name, String fruit, String exotic) {
+        inputName.sendKeys(name);
+        if (fruit.equals("FRUIT")){
             listType_Fruit.click();
         }else listType_Vegetable.click();
-        if (arg2.equals("true")){
+        if (exotic.equals("true")){
             checkboxExotic.click();
 
         }
@@ -90,32 +81,32 @@ private int tableScopeToCheck = 4;
     }
 
     @Given("Поле Наименование содержит значение {string}, Поле Тип содержит значение {string}, Поле Экзотический содержит значение {string}")
-    public void полеНаименованиеСодержитЗначениеПолеТипСодержитЗначениеПолеЭкзотическийСодержитЗначение(String arg0, String arg1, String arg2) {
-        if (!inputName.getAttribute("value").equals(arg0)) {
-            Assertions.fail();
-        }
+    public void полеНаименованиеСодержитЗначениеПолеТипСодержитЗначениеПолеЭкзотическийСодержитЗначение(String name, String fruit, String exotic) {
+
+       Assertions.assertEquals(inputName.getAttribute("value"), name);
+
         if (selectorIsFruit.getAttribute("value").equals("VEGETABLE")) {
-            if (arg1.equals("FRUIT")) {
+            if (fruit.equals("FRUIT")) {
                 Assertions.fail();
             }}
         else if (selectorIsFruit.getAttribute("value").equals("FRUIT")) {
-            if (arg1.equals("VEGETABLE")) {
+            if (fruit.equals("VEGETABLE")) {
                 Assertions.fail();
             }} else Assertions.fail();
 
         //if (checkboxExotic.getAttribute ("checked").equals(false)) {
-//                    if (arg2.equals("true") {
+//                    if (exotic.equals("true") {
 //                        checkboxExotic.click();
 //                    }
-//                } else if (!isExotic) {
+//                } else if (!exotic) {
 //                    checkboxExotic.click();
 //                }
 //
 //                if (checkboxExotic.getAttribute("checked").equals(false)) {
-//                    if (isExotic) {
+//                    if (exotic) {
 //                        Assertions.fail();
 //                    }
-//                } else if (!isExotic) {
+//                } else if (!exotic) {
 //                    Assertions.fail();
 //                }
             //доделать не смог. Получить значение из чекбокса "Экзотический" не вышло
@@ -124,33 +115,16 @@ private int tableScopeToCheck = 4;
         //если бы тест переписывался с нуля, может быть, выглядело бы всё красиво
     }
 
-    @Given("Кнопка Сохранить кликабельна")
-    public void кнопкаСохранитьКликабельна() {
-        //Реализация
-    }
+
 
     @Given("Нажимается кнопка Сохранить")
     public void нажимаетсяКнопкаСохранить() {
         buttonSave.click();
     }
 
-    @Given("Окно Добавление товара невидимо")
-    public void окноДобавлениеТовараНевидимо() {
-        //Реализация
-    }
-
-    @Given("В таблице имеется пятая строка")
-    public void вТаблицеИмеетсяПятаяСтрока() {
-        //Реализация
-    }
-
-    @Given("В таблице номер строки равно её отображаемому номеру")
-    public void вТаблицеНомерСтрокиРавноЕёОтображаемомуНомеру() {
-       //Реализация
-    }
 
     @Given("В таблице поле Наименование равно значению {string}, поле Тип равно значению {string}, поле Экзотический равно значению {string}")
-    public void вТаблицеПолеНаименованиеРавноЗначениюПолеТипРавноЗначениюПолеЭкзотическийРавноЗначению(String arg0, String arg1, String arg2) {
+    public void вТаблицеПолеНаименованиеРавноЗначениюПолеТипРавноЗначениюПолеЭкзотическийРавноЗначению(String name, String fruit, String exotic) {
         String prePathForTableCheck = "//tr[" + tableScopeToCheck + "]";
         By colomnNumberPath = By.xpath(prePathForTableCheck + "/th[text()=" + tableScopeToCheck + "]");
         WebElement rowNumber = driver.findElement(colomnNumberPath);
@@ -159,16 +133,11 @@ private int tableScopeToCheck = 4;
 
         int rowNumberInt = Integer.parseInt(rowNumberText);
 
-
-        if (rowNumberInt == tableScopeToCheck) {
+        Assertions.assertEquals(rowNumberInt, tableScopeToCheck);
             By colomnNamePath = By.xpath(prePathForTableCheck + "/td[1]");
             WebElement rowName = driver.findElement(colomnNamePath);
             String rowNameText = rowName.getText();
-
-            if (!rowNameText.equals(arg0) ) {
-                Assertions.fail();
-            }
-        } else Assertions.fail();
+            Assertions.assertEquals(rowNameText, name);
         //Проверка полей таблицы # и Наименование
 
 
@@ -178,10 +147,10 @@ private int tableScopeToCheck = 4;
         //сам не понял что написал, но работает
         // с именем переменной тоже самое
         if (rowFruitText.equals("Фрукт") ) {
-            if (!arg1.equals("FRUIT")) {
+            if (!fruit.equals("FRUIT")) {
                 Assertions.fail();
             }
-        } else if (arg1.equals("FRUIT")){Assertions.fail();}
+        } else if (fruit.equals("FRUIT")){Assertions.fail();}
         //Проверка поля таблицы Тип
 
 
