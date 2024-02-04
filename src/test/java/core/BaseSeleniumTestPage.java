@@ -1,6 +1,15 @@
 package core;
 
+import org.apache.commons.exec.OS;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.util.Properties;
 
 abstract public class BaseSeleniumTestPage {
 
@@ -10,6 +19,46 @@ abstract public class BaseSeleniumTestPage {
             driver = webDriver;
         }
 
+
+    }
+    @Test
+    public void initDriver() throws IOException {
+
+        System.getProperties().load(ClassLoader.getSystemResourceAsStream("application.properties"));
+        if ("remote".equalsIgnoreCase(System.getProperty("type.driver"))){
+        initRemoteDriver();
+        }else {
+            if (OS.isFamilyWindows()){
+                initDriverWindowsOsFamily();
+            } else if (OS.isFamilyMac()){
+                initDriverMacOSFamily();
+            } else if (OS.isFamilyUnix()){
+                initDriverUnixOsFamily();
+            }
+
+        }
+    }
+
+    private void initDriverUnixOsFamily() {
+    }
+
+    private void initDriverMacOSFamily() {
+    }
+
+    private void initDriverWindowsOsFamily() {
+    }
+
+    private void initRemoteDriver(){
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName(System.getProperty("type.browser"));
+        capabilities.setVersion("109.0");
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", false);
+        try {
+            driver = new RemoteWebDriver(URI.create(System.getProperty("selenoid.url")).toURL(),capabilities);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
