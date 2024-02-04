@@ -38,16 +38,6 @@ abstract public class BaseSeleniumTestPage {
 
         }
     }
-
-    private void initDriverUnixOsFamily() {
-    }
-
-    private void initDriverMacOSFamily() {
-    }
-
-    private void initDriverWindowsOsFamily() {
-    }
-
     private void initRemoteDriver(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(System.getProperty("type.browser"));
@@ -60,5 +50,20 @@ abstract public class BaseSeleniumTestPage {
             throw new RuntimeException(e);
         }
     }
+
+    // ниже должны были быть указаны пути к драйверам, но всё работает и без них
+
+
+
+    private void initDriverUnixOsFamily() {
+    }
+
+    private void initDriverMacOSFamily() {
+    }
+
+    private void initDriverWindowsOsFamily() {
+    }
+
+
 
 }
