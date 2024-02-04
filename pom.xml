@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.11.0</version>
+            <version>4.8.1</version>
 
         </dependency>
 
@@ -86,10 +86,6 @@
 
 
     </dependencies>
-
-
-
-
     <properties>
         <encoding.type>UTF-8</encoding.type>
         <project.build.sourceEncoding>${encoding.type}</project.build.sourceEncoding>
@@ -101,8 +97,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-
     <build>
         <plugins>
             <plugin>
