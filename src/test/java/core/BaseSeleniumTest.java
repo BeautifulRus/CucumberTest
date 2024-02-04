@@ -18,6 +18,7 @@ abstract public class BaseSeleniumTest {
     public void setUp(){
 
         WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().browserInDocker();
         Configuration.browser="chrome";
       //  Configuration. driverManagerEnabled=true;
         Configuration.browserSize="1920x1080";
