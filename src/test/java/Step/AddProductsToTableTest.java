@@ -1,5 +1,6 @@
 package Step;
 
+import com.codeborne.selenide.Configuration;
 import core.BaseSeleniumTestPage;
 import io.cucumber.java.en.Given;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -47,6 +48,7 @@ private int tableScopeToCheck = 4;
     @Given("Я нахожусь на странице {string}")
     public void openPage(String url) {
         WebDriverManager.chromedriver().setup();
+
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
