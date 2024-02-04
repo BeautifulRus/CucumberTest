@@ -1,6 +1,6 @@
 package core;
 
-import com.codeborne.selenide.Configuration;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,19 +18,16 @@ abstract public class BaseSeleniumTest {
     public void setUp(){
 
         WebDriverManager.chromedriver().setup();
-        WebDriverManager.chromedriver().browserInDocker();
-        Configuration.browser="chrome";
-      //  Configuration. driverManagerEnabled=true;
-        Configuration.browserSize="1920x1080";
-        Configuration.headless=false;
-//        driver = new ChromeDriver();
-//        driver.manage().window().maximize();
-//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-//        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-//        WebDriverWait wait =
-//                new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(10000));
-//
-//        BaseSeleniumTestPage.setDriver(driver);
+
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(10000));
+
+        BaseSeleniumTestPage.setDriver(driver);
+
 
 
     }

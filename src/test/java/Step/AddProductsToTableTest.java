@@ -1,6 +1,6 @@
 package Step;
 
-import com.codeborne.selenide.Configuration;
+
 import core.BaseSeleniumTestPage;
 import io.cucumber.java.en.Given;
 import io.github.bonigarcia.wdm.WebDriverManager;
