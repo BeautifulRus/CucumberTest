@@ -9,7 +9,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.Map;
 import java.util.Properties;
+
+
 
 abstract public class BaseSeleniumTestPage {
 
@@ -40,10 +43,15 @@ abstract public class BaseSeleniumTestPage {
     }
     private void initRemoteDriver(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", false
+        ));
+
         capabilities.setBrowserName(System.getProperty("type.browser"));
         capabilities.setVersion("109.0");
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", false);
+        /*capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", false);*/
         try {
             driver = new RemoteWebDriver(URI.create(System.getProperty("selenoid.url")).toURL(),capabilities);
         } catch (MalformedURLException e) {
