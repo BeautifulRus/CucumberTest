@@ -12,6 +12,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
 import java.time.Duration;
 
 public class AddProductsToTableTest extends BaseSeleniumTestPage {
@@ -37,7 +38,7 @@ private int tableScopeToCheck = 4;
     @FindBy(xpath = "//button [@id = \"save\"]")
     private static WebElement buttonSave;
    public AddProductsToTableTest() {
-        PageFactory.initElements(driver,
+        PageFactory.initElements(getRemoteWebDriver(),
                 this);
     }
 
@@ -47,17 +48,22 @@ private int tableScopeToCheck = 4;
 
     @Given("Я нахожусь на странице {string}")
     public void openPage(String url) {
-        WebDriverManager.chromedriver().setup();
 
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+        try {
+            initDriver();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        getRemoteWebDriver().manage().window().maximize();
+        getRemoteWebDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        getRemoteWebDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
         //WebDriverWait wait =
                // new WebDriverWait(driver, Duration.ofSeconds(10), Duration.ofMillis(10000));
         AddProductsToTableTest addProductsToTableTest = new AddProductsToTableTest();
-        BaseSeleniumTestPage.setDriver(driver);
-        driver.get(url);
+        //BaseSeleniumTestPage.setDriver(getRemoteWebDriver());
+        getRemoteWebDriver().get(url);
     }
 
 
@@ -129,7 +135,7 @@ private int tableScopeToCheck = 4;
     public void вТаблицеПолеНаименованиеРавноЗначениюПолеТипРавноЗначениюПолеЭкзотическийРавноЗначению(String name, String fruit, String exotic) {
         String prePathForTableCheck = "//tr[" + tableScopeToCheck + "]";
         By colomnNumberPath = By.xpath(prePathForTableCheck + "/th[text()=" + tableScopeToCheck + "]");
-        WebElement rowNumber = driver.findElement(colomnNumberPath);
+        WebElement rowNumber = getRemoteWebDriver().findElement(colomnNumberPath);
 
         String rowNumberText = rowNumber.getText();
 
@@ -137,14 +143,14 @@ private int tableScopeToCheck = 4;
 
         Assertions.assertEquals(rowNumberInt, tableScopeToCheck);
             By colomnNamePath = By.xpath(prePathForTableCheck + "/td[1]");
-            WebElement rowName = driver.findElement(colomnNamePath);
+            WebElement rowName = getRemoteWebDriver().findElement(colomnNamePath);
             String rowNameText = rowName.getText();
             Assertions.assertEquals(rowNameText, name);
         //Проверка полей таблицы # и Наименование
 
 
         By rowFruitt = By.xpath(prePathForTableCheck + "/td[2]");
-        WebElement rowFruit = driver.findElement(rowFruitt);
+        WebElement rowFruit = getRemoteWebDriver().findElement(rowFruitt);
         String rowFruitText = rowFruit.getText();
         //сам не понял что написал, но работает
         // с именем переменной тоже самое
@@ -171,7 +177,7 @@ private int tableScopeToCheck = 4;
 
     @Given("Сайт закрывается")
     public void сайтЗакрывается() {
-        driver.close();
-        driver.quit();
+        getRemoteWebDriver().close();
+        getRemoteWebDriver().quit();
     }
 }

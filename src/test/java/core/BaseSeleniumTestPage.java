@@ -16,15 +16,22 @@ import java.util.Properties;
 
 abstract public class BaseSeleniumTestPage {
 
-    protected static WebDriver driver;
-    public static void setDriver (WebDriver webDriver){
-        if (driver == null){
-            driver = webDriver;
+    public BaseSeleniumTestPage() {
+    }
+
+    private static RemoteWebDriver remoteWebDriver;
+ /*   public static void setDriver (RemoteWebDriver remoteWebDriver){
+        if (remoteWebDriver == null) {
+            remoteWebDriver = new RemoteWebDriver;
         }
 
+}*/
+    protected RemoteWebDriver getRemoteWebDriver(){
+      return remoteWebDriver;
+    };
 
-    }
-    @Test
+
+
     public void initDriver() throws IOException {
 
         System.getProperties().load(ClassLoader.getSystemResourceAsStream("application.properties"));
@@ -41,6 +48,7 @@ abstract public class BaseSeleniumTestPage {
 
         }
     }
+
     private void initRemoteDriver(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -53,11 +61,13 @@ abstract public class BaseSeleniumTestPage {
         /*capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", false);*/
         try {
-            driver = new RemoteWebDriver(URI.create(System.getProperty("selenoid.url")).toURL(),capabilities);
+           remoteWebDriver = new RemoteWebDriver(URI.create(System.getProperty("selenoid.url")).toURL(),capabilities);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
     // ниже должны были быть указаны пути к драйверам, но всё работает и без них
 

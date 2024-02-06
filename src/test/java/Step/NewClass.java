@@ -19,7 +19,7 @@ public class NewClass {
     @Given("Я авторизируюсь на стенде через SQL")
     public void яАвторизируюсьНаСтендеЧерезSQL() throws SQLException {
         connection
-                = DriverManager.getConnection("jdbc:h2:tcp://localhost:9092/mem:testdb", "user", "pass");
+                = DriverManager.getConnection("jdbc:h2:tcp://http://149.154.71.152:8080/:9092/mem:testdb", "user", "pass");
 
         statement = connection.createStatement();
 
