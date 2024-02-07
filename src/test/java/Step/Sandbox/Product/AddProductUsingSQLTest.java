@@ -1,4 +1,4 @@
-package Step;
+package Step.Sandbox.Product;
 
 import io.cucumber.java.en.Given;
 import io.qameta.allure.Step;
