@@ -126,9 +126,15 @@ public class AddProductUsingUITest extends DriverInit {
 
     }
 
-    @Given("Сайт закрывается")
+    @Given("Сайт закрывается") //в зависимости от браузера, шаг "Сайт закрывается" может упасть, но по факту тест пройден
     public void сайтЗакрывается() {
-        remoteWebDriver.close();
-        remoteWebDriver.quit();
+        try {
+            remoteWebDriver.close();
+            remoteWebDriver.quit();
+        } catch (Exception ignored) {
+            // сделано в связи с самостоятельным закрытием браузера и коннекта
+            // после тестов
+        }
+
     }
 }
