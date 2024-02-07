@@ -21,5 +21,5 @@ import static io.cucumber.junit.platform.engine.Constants.*;
 
 
 
-public class CucumberRunner {
+public class TestRunner {
 }
