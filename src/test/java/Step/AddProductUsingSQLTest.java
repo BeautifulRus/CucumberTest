@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 
 import java.sql.*;
 
-public class NewClass {
+public class AddProductUsingSQLTest {
 
     int foodId;
     String foodName = null;
@@ -19,7 +19,7 @@ public class NewClass {
     @Given("Я авторизируюсь на стенде через SQL")
     public void яАвторизируюсьНаСтендеЧерезSQL() throws SQLException {
         connection
-                = DriverManager.getConnection("jdbc:h2:tcp://http://149.154.71.152:8080/:9092/mem:testdb", "user", "pass");
+                = DriverManager.getConnection("jdbc:h2:tcp://149.154.71.152:9092/mem:testdb", "user", "pass");
 
         statement = connection.createStatement();
 

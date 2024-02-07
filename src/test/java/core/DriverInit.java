@@ -1,35 +1,22 @@
 package core;
 
 import org.apache.commons.exec.OS;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.time.Duration;
 import java.util.Map;
-import java.util.Properties;
 
 
+abstract public class DriverInit {
 
-abstract public class BaseSeleniumTestPage {
 
-    public BaseSeleniumTestPage() {
-    }
-
-    private static RemoteWebDriver remoteWebDriver;
- /*   public static void setDriver (RemoteWebDriver remoteWebDriver){
-        if (remoteWebDriver == null) {
-            remoteWebDriver = new RemoteWebDriver;
-        }
-
-}*/
-    protected RemoteWebDriver getRemoteWebDriver(){
-      return remoteWebDriver;
-    };
-
+    protected static RemoteWebDriver remoteWebDriver;
+    protected static WebDriverWait wait;
 
 
     public void initDriver() throws IOException {
@@ -49,23 +36,24 @@ abstract public class BaseSeleniumTestPage {
         }
     }
 
-    private void initRemoteDriver(){
+    private void initRemoteDriver() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                 "enableVideo", false
         ));
-
         capabilities.setBrowserName(System.getProperty("type.browser"));
         capabilities.setVersion("109.0");
-        /*capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", false);*/
-        try {
+
            remoteWebDriver = new RemoteWebDriver(URI.create(System.getProperty("selenoid.url")).toURL(),capabilities);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            remoteWebDriver.manage().window().maximize();
+            remoteWebDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+            remoteWebDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+            wait = new WebDriverWait(remoteWebDriver, Duration.ofSeconds(10), Duration.ofMillis(500));
+
         }
-    }
+
+
 
 
 
