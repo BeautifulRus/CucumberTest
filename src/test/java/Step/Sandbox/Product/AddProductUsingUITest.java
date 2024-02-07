@@ -37,7 +37,7 @@ public class AddProductUsingUITest extends DriverInit {
     private static WebElement buttonSave;
 
     public AddProductUsingUITest() {
-        PageFactory.initElements(remoteWebDriver,
+        PageFactory.initElements(driver,
                 this);
     }
 
@@ -46,7 +46,7 @@ public class AddProductUsingUITest extends DriverInit {
     public void яНахожусьНаСтранице(String url) throws IOException {
         initDriver();
         AddProductUsingUITest addProductUsingUITest = new AddProductUsingUITest();
-        remoteWebDriver.get(url);
+        driver.get(url);
     }
 
 
@@ -100,17 +100,17 @@ public class AddProductUsingUITest extends DriverInit {
     public void вТаблицеПолеНаименованиеРавноЗначениюПолеТипРавноЗначениюПолеЭкзотическийРавноЗначению(String name, String fruit, String exotic) {
         String prePathForTableCheck = "//tr[" + tableScopeToCheck + "]";
         By colomnNumberPath = By.xpath(prePathForTableCheck + "/th[text()=" + tableScopeToCheck + "]");
-        WebElement rowNumber = remoteWebDriver.findElement(colomnNumberPath);
+        WebElement rowNumber = driver.findElement(colomnNumberPath);
         int rowNumberInt = Integer.parseInt(rowNumber.getText());
         Assertions.assertEquals(rowNumberInt, tableScopeToCheck); //проверка очерёдности строки с её идентификатором || проверка поля "#"
 
         By colomnNamePath = By.xpath(prePathForTableCheck + "/td[1]");
-        WebElement rowName = remoteWebDriver.findElement(colomnNamePath);
+        WebElement rowName = driver.findElement(colomnNamePath);
         Assertions.assertEquals(rowName.getText(), name); //проверка поля "Наименование"
 
 
         By colomnFruitPath = By.xpath(prePathForTableCheck + "/td[2]");
-        WebElement rowFruit = remoteWebDriver.findElement(colomnFruitPath);
+        WebElement rowFruit = driver.findElement(colomnFruitPath);
         if (rowFruit.getText().equals("Фрукт")) {
             if (!fruit.equals("FRUIT")) {
                 Assertions.fail();
@@ -129,8 +129,8 @@ public class AddProductUsingUITest extends DriverInit {
     @Given("Сайт закрывается") //в зависимости от браузера, шаг "Сайт закрывается" может упасть, но по факту тест пройден
     public void сайтЗакрывается() {
         try {
-            remoteWebDriver.close();
-            remoteWebDriver.quit();
+            driver.close();
+            driver.quit();
         } catch (Exception ignored) {
             // сделано в связи с самостоятельным закрытием браузера и коннекта
             // после тестов
