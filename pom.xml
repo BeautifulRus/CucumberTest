@@ -17,27 +17,26 @@
             <artifactId>cucumber-java</artifactId>
             <version>7.9.0</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.2.224</version>
-
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5 -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber7-jvm</artifactId>
             <version>2.24.0</version>
-
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>LATEST</version>
-
         </dependency>
 
         <dependency>
@@ -46,7 +45,6 @@
             <version>LATEST</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-gherkin -->
-
 
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -62,8 +60,6 @@
             <scope>test</scope>
         </dependency>
 
-
-
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -77,15 +73,15 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.20</version>
         </dependency>
+
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-opera-driver</artifactId>
             <version>3.141.59</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
+
     <properties>
         <encoding.type>UTF-8</encoding.type>
         <project.build.sourceEncoding>${encoding.type}</project.build.sourceEncoding>
@@ -97,6 +93,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -116,12 +113,7 @@
                     <junit.jupiter.extensions.autodetection.enabled>true</junit.jupiter.extensions.autodetection.enabled>
                 </systemPropertyVariables>
             </configuration>
-
-
             </plugin>
-
-
-
 
             <plugin>
                 <groupId>io.qameta.allure</groupId>
@@ -132,17 +124,7 @@
                     <resultsDirectory>${project.build.directory}/reports/allure-results</resultsDirectory>
                     <reportDirectory>${project.build.directory}/reports/allure-result</reportDirectory>
                 </configuration>
-
-
             </plugin>
-
-
-
         </plugins>
     </build>
-
-
-
-
-
 </project>
